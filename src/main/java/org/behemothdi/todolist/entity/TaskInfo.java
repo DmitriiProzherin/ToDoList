@@ -1,4 +1,4 @@
-package org.behemothdi.todolist.controller;
+package org.behemothdi.todolist.entity;
 
 import lombok.Data;
 import org.behemothdi.todolist.entity.Status;

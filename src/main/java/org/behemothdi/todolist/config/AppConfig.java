@@ -37,7 +37,7 @@ public class AppConfig {
         return dataSource;
     }
 
-    @Bean
+
     public Properties hibernateProperties(){
         Properties properties = new Properties();
         properties.put(Environment.DIALECT, "org.hibernate.dialect.MySQL8Dialect");

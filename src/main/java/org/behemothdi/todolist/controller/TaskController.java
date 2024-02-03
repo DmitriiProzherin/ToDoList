@@ -1,8 +1,8 @@
 package org.behemothdi.todolist.controller;
 
 import org.behemothdi.todolist.entity.Task;
+import org.behemothdi.todolist.entity.TaskInfo;
 import org.behemothdi.todolist.service.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.List;
 public class TaskController {
     private final TaskService taskService;
 
-    public TaskController(@Autowired TaskService taskService) {
+    public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
 
@@ -27,14 +27,12 @@ public class TaskController {
     {
         List<Task> tasks = taskService.getAll((page - 1)*limit, limit);
         model.addAttribute("tasks", tasks);
-
-
         return "tasks";
     }
 
 
     @PostMapping("/{id}")
-    public void edit(
+    public String edit(
             Model model,
             @PathVariable Integer id,
             @RequestBody TaskInfo info
@@ -49,17 +47,19 @@ public class TaskController {
                 info.getDescription(),
                 info.getStatus());
 
+        return display(model, 1, 10);
     }
 
 
     @PostMapping("/")
-    public void add(
+    public String add(
             Model model,
             @RequestBody TaskInfo info
     ){
         taskService.create(
                 info.getDescription(),
                 info.getStatus());
+        return display(model, 1, 10);
     }
 
     @DeleteMapping("/{id}")
@@ -74,6 +74,6 @@ public class TaskController {
 
         taskService.delete(id);
 
-        return "tasks";
+        return display(model, 1, 10);
     }
 }
