@@ -1,6 +1,5 @@
 package org.behemothdi.todolist.service;
 
-import jakarta.transaction.Transactional;
 import org.behemothdi.todolist.dao.TaskDAO;
 import org.behemothdi.todolist.entity.Status;
 import org.behemothdi.todolist.entity.Task;
@@ -26,7 +25,6 @@ public class TaskService {
         return taskDAO.getAllCount();
     }
 
-    @Transactional
     public Task edit(int id, String description, Status status){
         Task task = taskDAO.getById(id);
         if (task == null) {
@@ -36,23 +34,21 @@ public class TaskService {
 
         task.setDescription(description);
         task.setStatus(status);
-        taskDAO.updateOrCreate(task);
+        taskDAO.saveOrUpdate(task);
 
         return task;
     }
-
     public Task create(String description, Status status){
         Task task = new Task();
-
+        System.out.println(task);
         task.setDescription(description);
         task.setStatus(status);
-
-        taskDAO.updateOrCreate(task);
+        System.out.println(task);
+        taskDAO.saveOrUpdate(task);
 
         return task;
     }
 
-    @Transactional
     public void delete(int id) {
         Task task = taskDAO.getById(id);
         if (task == null) {

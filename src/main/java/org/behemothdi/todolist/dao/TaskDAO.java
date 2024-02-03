@@ -3,11 +3,10 @@ package org.behemothdi.todolist.dao;
 import org.behemothdi.todolist.entity.Task;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class TaskDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
+
     public List<Task> getAll(int offset, int limit){
         try (Session session = sessionFactory.openSession()) {
             Query<Task> query = session.createQuery("from Task", Task.class);
@@ -30,7 +29,6 @@ public class TaskDAO {
         }
     }
 
-    @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
     public int getAllCount(){
         try(Session session = sessionFactory.openSession()) {
             Query<Long> query = session.createQuery("select count(t) from Task t", Long.class);
@@ -38,7 +36,6 @@ public class TaskDAO {
         }
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
     public Task getById(int id){
         try (Session session = sessionFactory.openSession()) {
             Query<Task> query = session.createQuery("from Task where id=:id", Task.class);
@@ -47,19 +44,20 @@ public class TaskDAO {
         }
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
-    public void updateOrCreate(Task task){
+    public void saveOrUpdate(Task task){
         try (Session session = sessionFactory.openSession()) {
-            session.persist(task);
+            Transaction transaction = session.beginTransaction();
+            session.saveOrUpdate(task);
+            transaction.commit();
         }
     }
 
 
-    @Transactional(propagation = Propagation.REQUIRED)
     public void delete(Task task) {
         try (Session session = sessionFactory.openSession()) {
-            session.delete(task);
-          //  session.flush();
+            Transaction transaction = session.beginTransaction();
+            session.remove(task);
+            transaction.commit();
         }
     }
 }

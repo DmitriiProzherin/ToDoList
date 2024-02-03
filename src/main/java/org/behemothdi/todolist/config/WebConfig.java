@@ -1,5 +1,6 @@
 package org.behemothdi.todolist.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,7 +20,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 public class WebConfig implements WebMvcConfigurer {
     final private ApplicationContext applicationContext;
 
-    public WebConfig(ApplicationContext applicationContext) {
+    public WebConfig(@Autowired ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
@@ -30,8 +31,6 @@ public class WebConfig implements WebMvcConfigurer {
         resolver.setPrefix("/html/");
         resolver.setSuffix(".html");
         resolver.setTemplateMode(TemplateMode.HTML);
-        // Убрать после разрабокти
-        resolver.setCacheable(false);
         return resolver;
     }
 

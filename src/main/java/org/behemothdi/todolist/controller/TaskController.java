@@ -3,12 +3,12 @@ package org.behemothdi.todolist.controller;
 import org.behemothdi.todolist.entity.Task;
 import org.behemothdi.todolist.entity.TaskInfo;
 import org.behemothdi.todolist.service.TaskService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
@@ -16,7 +16,7 @@ import java.util.stream.IntStream;
 public class TaskController {
     private final TaskService taskService;
 
-    public TaskController(TaskService taskService) {
+    public TaskController(@Autowired TaskService taskService) {
         this.taskService = taskService;
     }
 
@@ -47,7 +47,7 @@ public class TaskController {
             // Логгирование
             throw new RuntimeException("Invalid id");
         }
-
+            taskService.edit(id, info.getDescription(), info.getStatus());
         return display(model, 1, 10);
     }
 

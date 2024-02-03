@@ -12,8 +12,8 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Enumerated
-    @Column(name = "status")
+    @Column
     private Status status;
-    @Column(name = "description")
+    @Column
     private String description;
 }

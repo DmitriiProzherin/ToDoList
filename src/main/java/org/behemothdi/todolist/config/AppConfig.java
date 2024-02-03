@@ -1,21 +1,15 @@
 package org.behemothdi.todolist.config;
 
-import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.cfg.Environment;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableTransactionManagement
 public class AppConfig {
 
     @Bean
@@ -46,12 +40,5 @@ public class AppConfig {
         properties.put(Environment.PASS, "admin");
         properties.put(Environment.HBM2DDL_AUTO, "update");
         return properties;
-    }
-
-    @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory factory){
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(factory);
-        return transactionManager;
     }
 }
