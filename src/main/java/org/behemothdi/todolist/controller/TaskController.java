@@ -40,18 +40,13 @@ public class TaskController {
     @PostMapping("/{id}")
     public String edit(
             Model model,
-            @PathVariable Integer id,
+            @PathVariable(name = "id") Integer id,
             @RequestBody TaskInfo info
     ){
         if (id == null || id < 0) {
             // Логгирование
             throw new RuntimeException("Invalid id");
         }
-
-        Task task = taskService.edit(
-                id,
-                info.getDescription(),
-                info.getStatus());
 
         return display(model, 1, 10);
     }
@@ -71,7 +66,7 @@ public class TaskController {
     @DeleteMapping("/{id}")
     public String delete(
             Model model,
-            @PathVariable Integer id
+            @PathVariable(name = "id") Integer id
     ){
         if (id == null || id < 0) {
             // Логгирование

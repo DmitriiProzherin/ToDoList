@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="style/main.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="script/main.js"></script>
-    <script src="jquery-3.7.1.min.js"></script>
 </head>
 <body>
     <table>
@@ -38,5 +38,27 @@
             </a>
         </button>
     </h1>
+    <table>
+        <tr>
+            <td colspan="3" class="tes_bold">Add a task</td>
+        </tr>
+        <tr>
+            <td>/-/</td>
+            <td>
+                <input id="description_new" type="text" value="">
+            </td>
+            <td>
+                <label for="status_new"></label>
+                <select id="status_new">
+                    <option value="IN_PROGRESS">IN_PROGRESS</option>
+                    <option value="DONE">DONE</option>
+                    <option value="PAUSED">PAUSED</option>
+                </select>
+            </td>
+            <td>
+                <button id="save_new" onclick="add_task()">Save</button>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

@@ -10,7 +10,7 @@ import lombok.Data;
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     @Enumerated
     @Column(name = "status")
     private Status status;

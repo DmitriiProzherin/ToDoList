@@ -57,6 +57,9 @@ public class TaskDAO {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public void delete(Task task) {
-
+        try (Session session = sessionFactory.openSession()) {
+            session.delete(task);
+          //  session.flush();
+        }
     }
 }

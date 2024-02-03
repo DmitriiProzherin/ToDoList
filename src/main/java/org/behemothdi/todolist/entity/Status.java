@@ -1,7 +1,7 @@
 package org.behemothdi.todolist.entity;
 
 public enum Status {
-    STARTED,
+    PAUSED,
     IN_PROGRESS,
     FINISHED
 }
