@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping ("/")
@@ -27,6 +29,10 @@ public class TaskController {
     {
         List<Task> tasks = taskService.getAll((page - 1)*limit, limit);
         model.addAttribute("tasks", tasks);
+        model.addAttribute("current_page", page);
+        int totalPages = (int) Math.ceil(1.0*taskService.getAllCount() / limit);
+        List<Integer> pageNumbers = IntStream.range(1, totalPages+1).boxed().toList();
+        model.addAttribute("page_numbers", pageNumbers);
         return "tasks";
     }
 
